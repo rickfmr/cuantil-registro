@@ -23,3 +23,13 @@ Con el archivo `pronosticos.jsonl` (lo publica Cuantil):
    la línea *N* debe ser el `ultimo_hash` de esa fila.
 
 Si coincide, esos *N* pronósticos ya existían, sin cambios, en la fecha de esa fila.
+
+## Sello independiente (OpenTimestamps)
+
+Cada fila nueva de `cabezas.csv` también se guarda en `sellos/<fecha>_<hash>.txt` y se sella con
+[OpenTimestamps](https://opentimestamps.org/): su hash queda anclado en la blockchain de Bitcoin, así que la
+fecha no depende de confiar en Cuantil ni en GitHub. El sello tarda unas horas en completarse (el archivo
+`.ots` se actualiza solo en las corridas siguientes).
+
+Para verificar: arrastra el `.txt` y su `.ots` a https://opentimestamps.org, o con el cliente oficial
+`ots verify sellos/<archivo>.txt.ots`. Debe mostrar la hora del bloque de Bitcoin que lo contiene.
